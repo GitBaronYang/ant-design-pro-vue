@@ -68,6 +68,38 @@ export const asyncRouterMap = [
         ]
       },
 
+      // uplink channel
+      {
+        path: '/uplinkchannel',
+        redirect: '/uplinkchannel/index',
+        component: PageView,
+        meta: { title: '上行', icon: 'form', permission: [ 'uplinkchannel' ] },
+        children: [
+          {
+            path: '/uplinkchannel/index',
+            name: 'uplinkchannel',
+            component: () => import('@/views/uplinkchannel/index'),
+            meta: { title: '上行通道', keepAlive: true, permission: [ 'uplinkchannel' ] }
+          }
+        ]
+      },
+
+      // down channel
+      {
+        path: '/downchannel',
+        redirect: '/downchannel/index',
+        component: PageView,
+        meta: { title: '下行', icon: 'form', permission: [ 'downchannel' ] },
+        children: [
+          {
+            path: '/downchannel/index',
+            name: 'downchannel',
+            component: () => import('@/views/downchannel/index'),
+            meta: { title: '下行通道', keepAlive: true, permission: [ 'downchannel' ] }
+          }
+        ]
+      },
+
       // list
       {
         path: '/list',
