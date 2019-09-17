@@ -63,7 +63,7 @@ const vueConfig = {
     //   }
     // }
   },
-
+  publicPath:'./',
   // disable source map in production
   productionSourceMap: false,
   lintOnSave: undefined,
