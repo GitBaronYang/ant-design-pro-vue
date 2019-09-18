@@ -18,7 +18,7 @@
             </a-upload>
           </a-col>
           <a-col :span="12">
-            <a-button type="primary">发送</a-button>
+            <a-button type="primary" @click="downloadTM">发送</a-button>
           </a-col>
         </a-row>
       </a-card>
@@ -59,6 +59,8 @@
   </div>
 </template>
 <script>
+import { downlink } from '@/api/down'
+
 function getBase64 (img, callback) {
   const reader = new FileReader()
   reader.addEventListener('load', () => callback(reader.result))
@@ -108,6 +110,10 @@ export default {
         this.$message.error('Image must smaller than 2MB!')
       }
       return isJPG && isLt2M
+    },
+    async downloadTM () {
+      const rep = await downlink.tm({})
+      console.log(rep)
     }
   }
 }

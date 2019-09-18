@@ -67,7 +67,7 @@ export default {
   },
   methods: {
     wsConnect () {
-      this.ws = new WebSocket('ws://127.0.0.1:9000/ping')
+      this.ws = new WebSocket('ws://127.0.0.1:9000/v1/ping')
       // 连接打开时触发
       this.ws.onopen = () => {
         console.log('Connection open ...')

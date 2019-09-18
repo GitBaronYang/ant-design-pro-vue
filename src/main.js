@@ -6,6 +6,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store/'
 import { VueAxios } from './utils/request'
+import VueLodash from 'vue-lodash'
 
 // mock
 // import './mock'
@@ -20,6 +21,7 @@ Vue.config.productionTip = false
 
 // mount axios Vue.$http and this.$http
 Vue.use(VueAxios)
+Vue.use(VueLodash)
 
 new Vue({
   router,
