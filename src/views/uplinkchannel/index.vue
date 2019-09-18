@@ -3,8 +3,7 @@
     <a-row>
       <a-card title="遥控看板">
         <a href="#" slot="extra">more</a>
-        <a-table bordered :dataSource="dataSource" :columns="columns">
-        </a-table>
+        <a-table bordered :dataSource="dataSource" :columns="columns"></a-table>
       </a-card>
     </a-row>
     <a-row>
@@ -48,10 +47,43 @@ export default {
           title: 'contents',
           dataIndex: 'contents'
         }
-      ]
+      ],
+      ws: '',
+      wsClose: false
     }
   },
+  mounted () {
+    this.wsConnect()
+    window.setInterval(() => {
+      if (this.wsClose || this.ws === '') {
+        console.log(this.wsClose)
+        console.log('每隔1秒钟执行一次')
+        this.wsConnect()
+      }
+    }, 5000)
+  },
+  beforeDestroy () {
+    this.ws.close()
+  },
   methods: {
+    wsConnect () {
+      this.ws = new WebSocket('ws://127.0.0.1:9000/ping')
+      // 连接打开时触发
+      this.ws.onopen = () => {
+        console.log('Connection open ...')
+        this.ws.send('Hello WebSockets!')
+        this.wsClose = false
+      }
+      // 接收到消息时触发
+      this.ws.onmessage = evt => {
+        console.log(evt)
+      // this.msgList.push(evt.data)
+      }
+      this.ws.onclose = () => {
+        this.wsClose = true
+        console.log('Connection close !!!')
+      }
+    }
   }
 }
 </script>
