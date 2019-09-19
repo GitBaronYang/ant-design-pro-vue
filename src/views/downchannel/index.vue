@@ -59,11 +59,12 @@
                 name="avatar"
                 listType="picture-card"
                 class="avatar-uploader"
+                :multiple="true"
                 :showUploadList="false"
-                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                action="http://127.0.0.1:9000/v1/upload_image"
                 :beforeUpload="beforeUpload"
                 @change="handleChangeImage"
-                v-if="currentImageStep==1"
+                v-if="currentImageStep==0"
               >
                 <img v-if="imageUrl" style="width: 100%" :src="imageUrl" alt="avatar" />
                 <div v-else>
@@ -72,8 +73,8 @@
                 </div>
               </a-upload>
 
-              <div v-if="currentImageStep==0">
-                <a-button style="margin-right:20px">上一步</a-button>
+              <div v-if="currentImageStep==1">
+                <a-button style="margin-right:20px" @click="previousImageStep">上一步</a-button>
                 <a-button type="primary" >发送</a-button>
               </div>
             </a-col>
@@ -101,7 +102,7 @@ export default {
   data () {
     return {
       currentTMStep: 0,
-      currentImageStep: 1,
+      currentImageStep: 0,
       headers: {
         authorization: 'authorization-text'
       },
@@ -135,6 +136,7 @@ export default {
           this.imageUrl = imageUrl
           this.loading = false
         })
+        this.currentImageStep++
       }
     },
     beforeUpload (file) {
@@ -147,6 +149,9 @@ export default {
         this.$message.error('Image must smaller than 2MB!')
       }
       return isJPG && isLt2M
+    },
+    previousImageStep () {
+      this.currentImageStep--
     },
     async downloadTM () {
       const rep = await downlink.tm({})
