@@ -1,56 +1,87 @@
 <template>
   <div>
-    <a-row>
-      <a-card title="遥测（TM）">
-        <a href="#" slot="extra">more</a>
-        <a-row>
-          <a-col :span="12">
-            <a-upload
-              name="file"
-              :multiple="true"
-              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-              :headers="headers"
-              @change="handleChange"
-            >
-              <a-button>
-                <a-icon type="upload" />Click to Upload
-              </a-button>
-            </a-upload>
-          </a-col>
-          <a-col :span="12">
-            <a-button type="primary" @click="downloadTM">发送</a-button>
-          </a-col>
-        </a-row>
-      </a-card>
-    </a-row>
-    <a-row>
-      <a-card title="图像">
-        <a href="#" slot="extra">more</a>
-        <a-row>
-          <a-col :span="12">
-            <a-upload
-              name="avatar"
-              listType="picture-card"
-              class="avatar-uploader"
-              :showUploadList="false"
-              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-              :beforeUpload="beforeUpload"
-              @change="handleChangeImage"
-            >
-              <img v-if="imageUrl" :src="imageUrl" alt="avatar" />
-              <div v-else>
-                <a-icon :type="loading ? 'loading' : 'plus'" />
-                <div class="ant-upload-text">Upload</div>
+    <a-row :gutter="24">
+      <a-col :span="12">
+        <a-card title="遥测（TM）">
+          <a href="#" slot="extra">more</a>
+          <a-row>
+            <a-col :span="12">
+              <a-steps :current="currentTMStep" direction="vertical">
+                <a-step>
+                  <!-- <span slot="title">Finished</span> -->
+                  <template slot="title">
+                    Finished
+                  </template>
+                  <span slot="description">上传遥测文件</span>
+                </a-step>
+                <a-step title="In Progress" description="发送数据" />
+              </a-steps>
+            </a-col>
+            <a-col :span="12">
+              <a-upload
+                name="file"
+                :multiple="true"
+                action="http://127.0.0.1:9000/v1/upload_tm"
+                :headers="headers"
+                @change="handleChange"
+                v-if="currentTMStep==0"
+              >
+                <a-button>
+                  <a-icon type="upload" />Click to Upload
+                </a-button>
+              </a-upload>
+              <div v-if="currentTMStep==1">
+                <a-button style="margin-right:20px" @click="previousTMStep">上一步</a-button>
+                <a-button type="primary" @click="downloadTM">发送</a-button>
               </div>
-            </a-upload>
-          </a-col>
-          <a-col :span="12">
-            <a-button type="primary">发送</a-button>
-          </a-col>
-        </a-row>
-      </a-card>
+            </a-col>
+          </a-row>
+        </a-card>
+      </a-col>
+      <a-col :span="12">
+        <a-card title="图像">
+          <a href="#" slot="extra">more</a>
+          <a-row>
+            <a-col :span="12">
+              <a-steps :current="currentImageStep" direction="vertical">
+                <a-step>
+                  <!-- <span slot="title">Finished</span> -->
+                  <template slot="title">
+                    Finished
+                  </template>
+                  <span slot="description">上传图片文件</span>
+                </a-step>
+                <a-step title="In Progress" description="发送数据" />
+              </a-steps>
+            </a-col>
+            <a-col :span="12">
+              <a-upload
+                name="avatar"
+                listType="picture-card"
+                class="avatar-uploader"
+                :showUploadList="false"
+                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                :beforeUpload="beforeUpload"
+                @change="handleChangeImage"
+                v-if="currentImageStep==1"
+              >
+                <img v-if="imageUrl" style="width: 100%" :src="imageUrl" alt="avatar" />
+                <div v-else>
+                  <a-icon :type="loading ? 'loading' : 'plus'" />
+                  <div class="ant-upload-text">Upload</div>
+                </div>
+              </a-upload>
+
+              <div v-if="currentImageStep==0">
+                <a-button style="margin-right:20px">上一步</a-button>
+                <a-button type="primary" >发送</a-button>
+              </div>
+            </a-col>
+          </a-row>
+        </a-card>
+      </a-col>
     </a-row>
-    <a-row>
+    <a-row style="margin-top:40px">
       <a-card title="TC环回">
         <a href="#" slot="extra">more</a>
         <p>TC环回和上行通道TC绑定：收到TC后将TC码返回给发送方</p>
@@ -69,6 +100,8 @@ function getBase64 (img, callback) {
 export default {
   data () {
     return {
+      currentTMStep: 0,
+      currentImageStep: 1,
       headers: {
         authorization: 'authorization-text'
       },
@@ -83,9 +116,13 @@ export default {
       }
       if (info.file.status === 'done') {
         this.$message.success(`${info.file.name} file uploaded successfully`)
+        this.currentTMStep++
       } else if (info.file.status === 'error') {
         this.$message.error(`${info.file.name} file upload failed.`)
       }
+    },
+    previousTMStep () {
+      this.currentTMStep--
     },
     handleChangeImage (info) {
       if (info.file.status === 'uploading') {
