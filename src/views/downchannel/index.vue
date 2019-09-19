@@ -56,10 +56,9 @@
             </a-col>
             <a-col :span="12">
               <a-upload
-                name="avatar"
+                name="image"
                 listType="picture-card"
                 class="avatar-uploader"
-                :multiple="true"
                 :showUploadList="false"
                 action="http://127.0.0.1:9000/v1/upload_image"
                 :beforeUpload="beforeUpload"
@@ -75,7 +74,7 @@
 
               <div v-if="currentImageStep==1">
                 <a-button style="margin-right:20px" @click="previousImageStep">上一步</a-button>
-                <a-button type="primary" >发送</a-button>
+                <a-button type="primary" @click="downloadImage">发送</a-button>
               </div>
             </a-col>
           </a-row>
@@ -155,6 +154,10 @@ export default {
     },
     async downloadTM () {
       const rep = await downlink.tm({})
+      console.log(rep)
+    },
+    async downloadImage () {
+      const rep = await downlink.image()
       console.log(rep)
     }
   }

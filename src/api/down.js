@@ -3,7 +3,7 @@ import asyncservice from '@/utils/asyncservice'
 export const downlink = {
   tm: param => asyncservice.post('/tm', param),
 
-  image: () => asyncservice.get('/image')
+  image: () => asyncservice.post('/image')
 }
 
 export const useroles = {
