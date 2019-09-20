@@ -1,85 +1,89 @@
 <template>
   <div>
-    <a-row :gutter="24">
-      <a-col :span="12">
-        <a-card title="遥测（TM）">
-          <a href="#" slot="extra">more</a>
-          <a-row>
-            <a-col :span="12">
-              <a-steps :current="currentTMStep" direction="vertical">
-                <a-step>
-                  <!-- <span slot="title">Finished</span> -->
-                  <template slot="title">
-                    Finished
-                  </template>
-                  <span slot="description">上传遥测文件</span>
-                </a-step>
-                <a-step title="In Progress" description="发送数据" />
-              </a-steps>
-            </a-col>
-            <a-col :span="12">
-              <a-upload
-                name="file"
-                :multiple="true"
-                action="http://127.0.0.1:9000/v1/upload_tm"
-                :headers="headers"
-                @change="handleChange"
-                v-if="currentTMStep==0"
-              >
-                <a-button>
-                  <a-icon type="upload" />Click to Upload
-                </a-button>
-              </a-upload>
-              <div v-if="currentTMStep==1">
-                <a-button style="margin-right:20px" @click="previousTMStep">上一步</a-button>
-                <a-button type="primary" @click="downloadTM">发送</a-button>
-              </div>
-            </a-col>
-          </a-row>
-        </a-card>
-      </a-col>
-      <a-col :span="12">
-        <a-card title="图像">
-          <a href="#" slot="extra">more</a>
-          <a-row>
-            <a-col :span="12">
-              <a-steps :current="currentImageStep" direction="vertical">
-                <a-step>
-                  <!-- <span slot="title">Finished</span> -->
-                  <template slot="title">
-                    Finished
-                  </template>
-                  <span slot="description">上传图片文件</span>
-                </a-step>
-                <a-step title="In Progress" description="发送数据" />
-              </a-steps>
-            </a-col>
-            <a-col :span="12">
-              <a-upload
-                name="image"
-                listType="picture-card"
-                class="avatar-uploader"
-                :showUploadList="false"
-                action="http://127.0.0.1:9000/v1/upload_image"
-                :beforeUpload="beforeUpload"
-                @change="handleChangeImage"
-                v-if="currentImageStep==0"
-              >
-                <img v-if="imageUrl" style="width: 100%" :src="imageUrl" alt="avatar" />
-                <div v-else>
-                  <a-icon :type="loading ? 'loading' : 'plus'" />
-                  <div class="ant-upload-text">Upload</div>
+    <a-row>
+      <a-list
+        :grid="{ gutter: 16, xs: 1, sm: 2, md: 2, lg: 2 }"
+      >
+        <a-list-item >
+          <a-card title="遥测（TM）">
+            <a href="#" slot="extra">more</a>
+            <a-row>
+              <a-col :span="12">
+                <a-steps :current="currentTMStep" direction="vertical">
+                  <a-step>
+                    <!-- <span slot="title">Finished</span> -->
+                    <template slot="title">
+                      Finished
+                    </template>
+                    <span slot="description">上传遥测文件</span>
+                  </a-step>
+                  <a-step title="In Progress" description="发送数据" />
+                </a-steps>
+              </a-col>
+              <a-col :span="12">
+                <a-upload
+                  name="file"
+                  :multiple="true"
+                  action="http://127.0.0.1:9000/v1/upload_tm"
+                  :headers="headers"
+                  @change="handleChange"
+                  v-if="currentTMStep==0"
+                >
+                  <a-button>
+                    <a-icon type="upload" />Click to Upload
+                  </a-button>
+                </a-upload>
+                <div v-if="currentTMStep==1">
+                  <a-button style="margin-right:20px" @click="previousTMStep">上一步</a-button>
+                  <a-button type="primary" @click="downloadTM">发送</a-button>
                 </div>
-              </a-upload>
+              </a-col>
+            </a-row>
+          </a-card>
+        </a-list-item>
+        <a-list-item >
+          <a-card title="图像">
+            <a href="#" slot="extra">more</a>
+            <a-row>
+              <a-col :span="12">
+                <a-steps :current="currentImageStep" direction="vertical">
+                  <a-step>
+                    <!-- <span slot="title">Finished</span> -->
+                    <template slot="title">
+                      Finished
+                    </template>
+                    <span slot="description">上传图片文件</span>
+                  </a-step>
+                  <a-step title="In Progress" description="发送数据" />
+                </a-steps>
+              </a-col>
+              <a-col :span="12">
+                <a-upload
+                  name="image"
+                  listType="picture-card"
+                  class="avatar-uploader"
+                  :showUploadList="false"
+                  action="http://127.0.0.1:9000/v1/upload_image"
+                  :beforeUpload="beforeUpload"
+                  @change="handleChangeImage"
+                  v-if="currentImageStep==0"
+                >
+                  <img v-if="imageUrl" style="width: 100%" :src="imageUrl" alt="avatar" />
+                  <div v-else>
+                    <a-icon :type="loading ? 'loading' : 'plus'" />
+                    <div class="ant-upload-text">Upload</div>
+                  </div>
+                </a-upload>
 
-              <div v-if="currentImageStep==1">
-                <a-button style="margin-right:20px" @click="previousImageStep">上一步</a-button>
-                <a-button type="primary" @click="downloadImage">发送</a-button>
-              </div>
-            </a-col>
-          </a-row>
-        </a-card>
-      </a-col>
+                <div v-if="currentImageStep==1">
+                  <a-button style="margin-right:20px" @click="previousImageStep">上一步</a-button>
+                  <a-button type="primary" @click="downloadImage">发送</a-button>
+                </div>
+              </a-col>
+            </a-row>
+          </a-card>
+        </a-list-item>
+      </a-list>
     </a-row>
     <a-row style="margin-top:40px">
       <a-card title="TC环回">
