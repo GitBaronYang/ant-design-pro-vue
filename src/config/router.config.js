@@ -15,10 +15,16 @@ export const asyncRouterMap = [
       {
         path: '/dashboard',
         name: 'dashboard',
-        redirect: '/dashboard/analysis',
+        redirect: '/dashboard/workplace',
         component: RouteView,
         meta: { title: '仪表盘', keepAlive: true, icon: bxAnaalyse, permission: [ 'dashboard' ] },
         children: [
+          {
+            path: '/dashboard/workplace',
+            name: 'Workplace',
+            component: () => import('@/views/dashboard/Workplace'),
+            meta: { title: '工作台', keepAlive: true, permission: [ 'dashboard' ] }
+          },
           {
             path: '/dashboard/analysis',
             name: 'Analysis',
@@ -31,12 +37,6 @@ export const asyncRouterMap = [
           //   name: 'Monitor',
           //   meta: { title: '监控页（外部）', target: '_blank' }
           // },
-          // {
-          //   path: '/dashboard/workplace',
-          //   name: 'Workplace',
-          //   component: () => import('@/views/dashboard/Workplace'),
-          //   meta: { title: '工作台', keepAlive: true, permission: [ 'dashboard' ] }
-          // }
         ]
       },
 
@@ -69,36 +69,36 @@ export const asyncRouterMap = [
       // },
 
       // uplink channel
-      {
-        path: '/uplinkchannel',
-        redirect: '/uplinkchannel/index',
-        component: PageView,
-        meta: { title: '上行', icon: 'form', permission: [ 'uplinkchannel' ] },
-        children: [
-          {
-            path: '/uplinkchannel/index',
-            name: 'uplinkchannel',
-            component: () => import('@/views/uplinkchannel/index'),
-            meta: { title: '上行通道', keepAlive: true, permission: [ 'uplinkchannel' ] }
-          }
-        ]
-      },
+      // {
+      //   path: '/uplinkchannel',
+      //   redirect: '/uplinkchannel/index',
+      //   component: PageView,
+      //   meta: { title: '上行', icon: 'form', permission: [ 'uplinkchannel' ] },
+      //   children: [
+      //     {
+      //       path: '/uplinkchannel/index',
+      //       name: 'uplinkchannel',
+      //       component: () => import('@/views/uplinkchannel/index'),
+      //       meta: { title: '上行通道', keepAlive: true, permission: [ 'uplinkchannel' ] }
+      //     }
+      //   ]
+      // },
 
       // down channel
-      {
-        path: '/downchannel',
-        redirect: '/downchannel/index',
-        component: PageView,
-        meta: { title: '下行', icon: 'form', permission: [ 'downchannel' ] },
-        children: [
-          {
-            path: '/downchannel/index',
-            name: 'downchannel',
-            component: () => import('@/views/downchannel/index'),
-            meta: { title: '下行通道', keepAlive: true, permission: [ 'downchannel' ] }
-          }
-        ]
-      },
+      // {
+      //   path: '/downchannel',
+      //   redirect: '/downchannel/index',
+      //   component: PageView,
+      //   meta: { title: '下行', icon: 'form', permission: [ 'downchannel' ] },
+      //   children: [
+      //     {
+      //       path: '/downchannel/index',
+      //       name: 'downchannel',
+      //       component: () => import('@/views/downchannel/index'),
+      //       meta: { title: '下行通道', keepAlive: true, permission: [ 'downchannel' ] }
+      //     }
+      //   ]
+      // },
 
       // list
       // {

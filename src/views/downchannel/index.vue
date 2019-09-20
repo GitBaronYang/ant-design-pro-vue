@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page-header-index-wide">
     <a-row>
       <a-list
         :grid="{ gutter: 16, xs: 1, sm: 2, md: 2, lg: 2 }"
@@ -85,7 +85,7 @@
         </a-list-item>
       </a-list>
     </a-row>
-    <a-row style="margin-top:40px">
+    <a-row >
       <a-card title="TC环回">
         <a href="#" slot="extra">more</a>
         <p>TC环回和上行通道TC绑定：收到TC后将TC码返回给发送方</p>
@@ -94,7 +94,7 @@
   </div>
 </template>
 <script>
-import { downlink } from '@/api/down'
+import { downlink } from '@/api/data-link'
 
 function getBase64 (img, callback) {
   const reader = new FileReader()

@@ -4,6 +4,11 @@ export const downlink = {
   tm: param => asyncservice.post('/tm', param),
 
   image: () => asyncservice.post('/image')
+
+}
+
+export const uplink = {
+  tc: param => asyncservice.post('/tc', param)
 }
 
 export const useroles = {
