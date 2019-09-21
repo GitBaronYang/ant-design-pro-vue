@@ -220,11 +220,8 @@
             </a-list>
           </a-card>
           <a-card title="遥控接收" style="margin-bottom: 24px" :bordered="false" :body-style="{ padding: 0 }">
-            <div style="min-height: 400px; max-height: 400px;">
-              <div v-for="item in tcMessage" :key="item.id">
-                {{ item.value }}
-              </div>
-
+            <div style="min-height: 400px; max-height: 400px; padding: 15px; overflow-y: scroll;">
+              {{ tcMessage }}
             </div>
           </a-card>
           <a-card title="TC还回响应" :bordered="false">
@@ -281,7 +278,7 @@ export default {
       imageUrl: '',
       ws: '',
       wsClose: false,
-      tcMessage: []
+      tcMessage: '' // []
     }
   },
   created () {
@@ -382,8 +379,8 @@ export default {
       // 接收到消息时触发
       this.ws.onmessage = evt => {
         console.log(evt)
-        this.tcMessage.push({ value: evt.data, key: evt.timeStamp })
-        // this.tcMessage = evt.data
+        // this.tcMessage.push({ value: evt.data, key: evt.timeStamp })
+        this.tcMessage = evt.data
       // this.msgList.push(evt.data)
       }
       this.ws.onclose = () => {
