@@ -220,6 +220,7 @@
             </a-list>
           </a-card>
           <a-card title="遥控接收" style="margin-bottom: 24px" :bordered="false" :body-style="{ padding: 0 }">
+            <a-button style="margin-top:60px" @click="compressClick">Compress</a-button>
             <div style="min-height: 400px; max-height: 400px; padding: 15px; overflow-y: scroll;">
               {{ tcMessage }}
             </div>
@@ -246,8 +247,9 @@
 import { PageView } from '@/layouts'
 import HeadInfo from '@/components/tools/HeadInfo'
 import { Radar } from '@/components'
+var SnappyJS = require('snappyjs')
 
-import { downlink, uplink } from '@/api/data-link'
+import { downlink, uplink, compress } from '@/api/data-link'
 
 function getBase64 (img, callback) {
   const reader = new FileReader()
@@ -286,13 +288,6 @@ export default {
   },
   mounted () {
     this.wsConnect()
-    window.setInterval(() => {
-      if (this.wsClose || this.ws === '') {
-        console.log(this.wsClose)
-        console.log('每隔1秒钟执行一次')
-        this.wsConnect()
-      }
-    }, 5000)
   },
   methods: {
     handleChange (info) {
@@ -401,6 +396,25 @@ export default {
     async uploadTC () {
       const rep = await uplink.tc(this.udplink)
       console.log(rep)
+    },
+    async compressClick () {
+      const rep = await compress.compress({})
+      console.log(rep)
+      // var uint8array = new TextEncoder().encode(rep.three);
+      var uint8array =  this.stringToUint8Array(rep.three)
+
+      console.log(uint8array)
+      var uncompressed = SnappyJS.uncompress(uint8array)
+      var string = new TextDecoder().decode(uncompressed)
+      console.log(string)
+    },
+    stringToUint8Array(str){
+      var arr = [];
+      for (var i = 0, j = str.length; i < j; ++i) {
+        arr.push(str.charCodeAt(i));
+      }
+      var tmpUint8Array = new Uint8Array(arr);
+      return tmpUint8Array
     }
   },
   beforeDestroy () {

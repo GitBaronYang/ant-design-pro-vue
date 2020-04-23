@@ -66,7 +66,7 @@ const vueConfig = {
   publicPath:'./',
   // disable source map in production
   productionSourceMap: false,
-  lintOnSave: undefined,
+  lintOnSave: false,
   // babel-loader no-ignore node_modules/*
   transpileDependencies: []
 }

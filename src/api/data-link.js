@@ -14,3 +14,7 @@ export const uplink = {
 export const useroles = {
   getUserInfo: param => asyncservice.get(`/role/${param}`, param)
 }
+
+export const compress = {
+  compress: param => asyncservice.get(`/test/v1/map`, param)
+}
