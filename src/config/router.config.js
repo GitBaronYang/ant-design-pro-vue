@@ -17,26 +17,26 @@ export const asyncRouterMap = [
         name: 'dashboard',
         redirect: '/dashboard/workplace',
         component: RouteView,
-        meta: { title: '仪表盘', keepAlive: true, icon: bxAnaalyse, permission: [ 'dashboard' ] },
+        meta: { title: '仪表盘', keepAlive: true, icon: bxAnaalyse, permission: ['dashboard'] },
         children: [
           {
             path: '/dashboard/workplace',
             name: 'Workplace',
             component: () => import('@/views/dashboard/Workplace'),
-            meta: { title: '工作台', keepAlive: true, permission: [ 'dashboard' ] }
+            meta: { title: '工作台', keepAlive: true, permission: ['dashboard'] }
           },
           {
             path: '/dashboard/analysis',
             name: 'Analysis',
             component: () => import('@/views/dashboard/Analysis'),
-            meta: { title: '分析页', keepAlive: false, permission: [ 'dashboard' ] }
-          }
-          // 外部链接
-          // {
-          //   path: 'https://www.baidu.com/',
-          //   name: 'Monitor',
-          //   meta: { title: '监控页（外部）', target: '_blank' }
-          // },
+            meta: { title: '分析页', keepAlive: false, permission: ['dashboard'] }
+          },
+          {
+            path: '/dashboard/CronTriggerView',
+            name: 'CronTriggerView',
+            component: () => import('@/views/dashboard/CronTriggerView'),
+            meta: { title: '分析页', keepAlive: false, permission: ['dashboard'] }
+          },
         ]
       },
 
@@ -238,7 +238,7 @@ export const asyncRouterMap = [
         component: RouteView,
         redirect: '/account/settings',
         name: 'account',
-        meta: { title: '个人页', icon: 'user', keepAlive: true, permission: [ 'user' ] },
+        meta: { title: '个人页', icon: 'user', keepAlive: true, permission: ['user'] },
         children: [
           // {
           //   path: '/account/center',
@@ -250,7 +250,7 @@ export const asyncRouterMap = [
             path: '/account/settings',
             name: 'settings',
             component: () => import('@/views/account/settings/Index'),
-            meta: { title: '个人设置', hideHeader: true, permission: [ 'user' ] },
+            meta: { title: '个人设置', hideHeader: true, permission: ['user'] },
             redirect: '/account/settings/base',
             hideChildrenInMenu: true,
             children: [
@@ -258,31 +258,31 @@ export const asyncRouterMap = [
                 path: '/account/settings/base',
                 name: 'BaseSettings',
                 component: () => import('@/views/account/settings/BaseSetting'),
-                meta: { title: '基本设置', hidden: true, permission: [ 'user' ] }
+                meta: { title: '基本设置', hidden: true, permission: ['user'] }
               },
               {
                 path: '/account/settings/security',
                 name: 'SecuritySettings',
                 component: () => import('@/views/account/settings/Security'),
-                meta: { title: '安全设置', hidden: true, keepAlive: true, permission: [ 'user' ] }
+                meta: { title: '安全设置', hidden: true, keepAlive: true, permission: ['user'] }
               },
               {
                 path: '/account/settings/custom',
                 name: 'CustomSettings',
                 component: () => import('@/views/account/settings/Custom'),
-                meta: { title: '个性化设置', hidden: true, keepAlive: true, permission: [ 'user' ] }
+                meta: { title: '个性化设置', hidden: true, keepAlive: true, permission: ['user'] }
               },
               {
                 path: '/account/settings/binding',
                 name: 'BindingSettings',
                 component: () => import('@/views/account/settings/Binding'),
-                meta: { title: '账户绑定', hidden: true, keepAlive: true, permission: [ 'user' ] }
+                meta: { title: '账户绑定', hidden: true, keepAlive: true, permission: ['user'] }
               },
               {
                 path: '/account/settings/notification',
                 name: 'NotificationSettings',
                 component: () => import('@/views/account/settings/Notification'),
-                meta: { title: '新消息通知', hidden: true, keepAlive: true, permission: [ 'user' ] }
+                meta: { title: '新消息通知', hidden: true, keepAlive: true, permission: ['user'] }
               }
             ]
           }

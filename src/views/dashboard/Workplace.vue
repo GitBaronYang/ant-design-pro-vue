@@ -2,20 +2,30 @@
   <page-view :title="false">
     <div slot="headerContent">
       <!-- <div class="title">enjoy <span class="welcome-text">， welcome </span></div> -->
-      <div class="title">WebSocket连接状态：
-        <a-progress type="circle" :percent="100" :width="30" status="exception" v-if="wsClose"/>
-        <a-progress type="circle" :percent="100" :width="30" v-else/>
+      <div class="title">
+        WebSocket连接状态：
+        <a-progress type="circle" :percent="100" :width="30" status="exception" v-if="wsClose" />
+        <a-progress type="circle" :percent="100" :width="30" v-else />
       </div>
-      <div>攻城狮  - |  - 测试平台</div>
-
+      <div>攻城狮 - | - 测试平台</div>
     </div>
     <div slot="extra">
       <a-row class="more-info">
         <a-col :span="8">
-          <head-info :title="$t('dashboard.workplace.project')" content="56" :center="false" :bordered="false"/>
+          <head-info
+            :title="$t('dashboard.workplace.project')"
+            content="56"
+            :center="false"
+            :bordered="false"
+          />
         </a-col>
         <a-col :span="8">
-          <head-info :title="$t('dashboard.workplace.teamRank')" content="8/24" :center="false" :bordered="false"/>
+          <head-info
+            :title="$t('dashboard.workplace.teamRank')"
+            content="8/24"
+            :center="false"
+            :bordered="false"
+          />
         </a-col>
         <a-col :span="8">
           <head-info :title="$t('dashboard.workplace.views')" content="2,223" :center="false" />
@@ -30,12 +40,11 @@
             class="project-list"
             style="margin-bottom: 24px;"
             :bordered="false"
-            :body-style="{ padding: 0 }">
+            :body-style="{ padding: 0 }"
+          >
             <div>
-              <a-list
-                :grid="{ gutter: 16, xs: 1, sm: 2, md: 2, lg: 2 }"
-              >
-                <a-list-item >
+              <a-list :grid="{ gutter: 16, xs: 1, sm: 2, md: 2, lg: 2 }">
+                <a-list-item>
                   <a-card title="模拟遥测发送" :bordered="false">
                     <a href="#" slot="extra">more</a>
                     <a-row>
@@ -43,9 +52,7 @@
                         <a-steps :current="currentTMStep" direction="vertical">
                           <a-step>
                             <!-- <span slot="title">Finished</span> -->
-                            <template slot="title">
-                              TM File
-                            </template>
+                            <template slot="title">TM File</template>
                             <span slot="description">上传遥测文件</span>
                           </a-step>
                           <a-step title="Finished" description="发送数据" />
@@ -72,7 +79,7 @@
                     </a-row>
                   </a-card>
                 </a-list-item>
-                <a-list-item >
+                <a-list-item>
                   <a-card title="模拟图像发送" :bordered="false">
                     <a href="#" slot="extra">more</a>
                     <a-row>
@@ -80,9 +87,7 @@
                         <a-steps :current="currentImageStep" direction="vertical">
                           <a-step>
                             <!-- <span slot="title">Finished</span> -->
-                            <template slot="title">
-                              Image
-                            </template>
+                            <template slot="title">Image</template>
                             <span slot="description">上传图片文件</span>
                           </a-step>
                           <a-step title="Finished" description="发送数据" />
@@ -129,16 +134,8 @@
                 </a-steps>
               </a-col>
               <a-col :span="12">
-                <a-form
-                  :form="form"
-                  @submit="handleSubmit"
-                  v-if="currentTCStep==0"
-                >
-                  <a-form-item
-                    label="ip"
-                    :label-col="{ span: 5 }"
-                    :wrapper-col="{ span: 12 }"
-                  >
+                <a-form :form="form" @submit="handleSubmit" v-if="currentTCStep==0">
+                  <a-form-item label="ip" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
                     <a-input
                       v-decorator="[
                         'ip',
@@ -147,11 +144,7 @@
                       pattern="(\d|[1-9]\d|1\d{2}|2[0-5][0-5])\.(\d|[1-9]\d|1\d{2}|2[0-5][0-5])\.(\d|[1-9]\d|1\d{2}|2[0-5][0-5])\.(\d|[1-9]\d|1\d{2}|2[0-5][0-5])"
                     />
                   </a-form-item>
-                  <a-form-item
-                    label="port"
-                    :label-col="{ span: 5 }"
-                    :wrapper-col="{ span: 12 }"
-                  >
+                  <a-form-item label="port" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
                     <a-input-number
                       v-decorator="[
                         'port',
@@ -160,15 +153,8 @@
                       :min="1"
                     />
                   </a-form-item>
-                  <a-form-item
-                    :wrapper-col="{ span: 12, offset: 5 }"
-                  >
-                    <a-button
-                      type="primary"
-                      html-type="submit"
-                    >
-                      下一步
-                    </a-button>
+                  <a-form-item :wrapper-col="{ span: 12, offset: 5 }">
+                    <a-button type="primary" html-type="submit">下一步</a-button>
                   </a-form-item>
                 </a-form>
 
@@ -194,36 +180,35 @@
               </a-col>
             </a-row>
           </a-card>
-
         </a-col>
-        <a-col
-          style="padding: 0 12px"
-          :xl="8"
-          :lg="24"
-          :md="24"
-          :sm="24"
-          :xs="24">
+        <a-col style="padding: 0 12px" :xl="8" :lg="24" :md="24" :sm="24" :xs="24">
           <a-card title="话音接收" :bordered="false" style="margin-bottom: 24px;">
             <a-list>
               <a-list-item>
                 <a-list-item-meta>
-                  <a-avatar slot="avatar"/>
+                  <a-avatar slot="avatar" />
                   <div slot="title">
-                    <span> item.user.nickname </span>&nbsp;
-                    在&nbsp;<a href="#"> item.project.name </a>&nbsp;
-                    <span> item.project.action </span>&nbsp;
-                    <a href="#"> item.project.event </a>
+                    <span>item.user.nickname</span>&nbsp;
+                    在&nbsp;
+                    <a href="#">item.project.name</a>&nbsp;
+                    <span>item.project.action</span>&nbsp;
+                    <a href="#">item.project.event</a>
                   </div>
-                  <div slot="description"> item.time </div>
+                  <div slot="description">item.time</div>
                 </a-list-item-meta>
               </a-list-item>
             </a-list>
           </a-card>
-          <a-card title="遥控接收" style="margin-bottom: 24px" :bordered="false" :body-style="{ padding: 0 }">
+          <a-card
+            title="遥控接收"
+            style="margin-bottom: 24px"
+            :bordered="false"
+            :body-style="{ padding: 0 }"
+          >
             <a-button style="margin-top:60px" @click="compressClick">Compress</a-button>
-            <div style="min-height: 400px; max-height: 400px; padding: 15px; overflow-y: scroll;">
-              {{ tcMessage }}
-            </div>
+            <div
+              style="min-height: 400px; max-height: 400px; padding: 15px; overflow-y: scroll;"
+            >{{ tcMessage }}</div>
           </a-card>
           <a-card title="TC还回响应" :bordered="false">
             <div class="members">
@@ -231,7 +216,7 @@
                 <a-col :span="12">
                   <a>
                     <a-avatar size="small" />
-                    <span class="member"> item.name </span>
+                    <span class="member">item.name</span>
                   </a>
                 </a-col>
               </a-row>
@@ -251,7 +236,7 @@ var SnappyJS = require('snappyjs')
 
 import { downlink, uplink, compress } from '@/api/data-link'
 
-function getBase64 (img, callback) {
+function getBase64(img, callback) {
   const reader = new FileReader()
   reader.addEventListener('load', () => callback(reader.result))
   reader.readAsDataURL(img)
@@ -263,7 +248,7 @@ export default {
     HeadInfo,
     Radar
   },
-  data () {
+  data() {
     return {
       currentTMStep: 0,
       currentImageStep: 0,
@@ -283,14 +268,12 @@ export default {
       tcMessage: '' // []
     }
   },
-  created () {
-
-  },
-  mounted () {
+  created() {},
+  mounted() {
     this.wsConnect()
   },
   methods: {
-    handleChange (info) {
+    handleChange(info) {
       if (info.file.status !== 'uploading') {
         console.log(info.file, info.fileList)
       }
@@ -301,12 +284,12 @@ export default {
         this.$message.error(`${info.file.name} file upload failed.`)
       }
     },
-    previousTMStep () {
+    previousTMStep() {
       this.currentTMStep--
     },
 
     // Image 处理部分
-    handleChangeImage (info) {
+    handleChangeImage(info) {
       if (info.file.status === 'uploading') {
         this.loading = true
         return
@@ -320,7 +303,7 @@ export default {
         this.currentImageStep++
       }
     },
-    beforeUpload (file) {
+    beforeUpload(file) {
       const isJPG = file.type === 'image/jpeg'
       if (!isJPG) {
         this.$message.error('You can only upload JPG file!')
@@ -331,12 +314,12 @@ export default {
       }
       return isJPG && isLt2M
     },
-    previousImageStep () {
+    previousImageStep() {
       this.currentImageStep--
     },
 
     // 遥控处理部分
-    handleSubmit (e) {
+    handleSubmit(e) {
       e.preventDefault()
       this.form.validateFields((err, values) => {
         if (!err) {
@@ -347,7 +330,7 @@ export default {
         }
       })
     },
-    handleChangeTC (info) {
+    handleChangeTC(info) {
       if (info.file.status !== 'uploading') {
         console.log(info.file, info.fileList)
       }
@@ -358,12 +341,12 @@ export default {
         this.$message.error(`${info.file.name} file upload failed.`)
       }
     },
-    previousTCStep () {
+    previousTCStep() {
       this.currentTCStep--
     },
 
     // websocket
-    wsConnect () {
+    wsConnect() {
       this.ws = new WebSocket('ws://127.0.0.1:9000/v1/ping')
       // 连接打开时触发
       this.ws.onopen = () => {
@@ -376,7 +359,7 @@ export default {
         console.log(evt)
         // this.tcMessage.push({ value: evt.data, key: evt.timeStamp })
         this.tcMessage = evt.data
-      // this.msgList.push(evt.data)
+        // this.msgList.push(evt.data)
       }
       this.ws.onclose = () => {
         this.wsClose = true
@@ -385,154 +368,157 @@ export default {
     },
 
     // api 处理部分
-    async downloadTM () {
+    async downloadTM() {
       const rep = await downlink.tm({})
       console.log(rep)
     },
-    async downloadImage () {
+    async downloadImage() {
       const rep = await downlink.image()
       console.log(rep)
     },
-    async uploadTC () {
+    async uploadTC() {
       const rep = await uplink.tc(this.udplink)
       console.log(rep)
     },
-    async compressClick () {
-      const rep = await compress.compress({})
+    async compressClick() {
+      let currentPage = 1
+      const rep = await compress.compress(currentPage, 5)
       console.log(rep)
-      // var uint8array = new TextEncoder().encode(rep.three);
-      var uint8array =  this.stringToUint8Array(rep.three)
+      while (rep != null && rep.data.records.length > 0) {
+        currentPage = currentPage + 1
+        const temp = await compress.compress(currentPage, 5)
+        console.log(temp)
+        rep.data = temp.data
 
-      console.log(uint8array)
-      var uncompressed = SnappyJS.uncompress(uint8array)
-      var string = new TextDecoder().decode(uncompressed)
-      console.log(string)
-    },
-    stringToUint8Array(str){
-      var arr = [];
-      for (var i = 0, j = str.length; i < j; ++i) {
-        arr.push(str.charCodeAt(i));
+        // var uint8array = this.stringToUint8Array(temp.data.records[0])
+        // // console.log(uint8array)
+        // var uncompressed = SnappyJS.uncompress(uint8array)
+        // var string = new TextDecoder().decode(uncompressed)
+        // console.log(string)
+        
       }
-      var tmpUint8Array = new Uint8Array(arr);
+    },
+    stringToUint8Array(str) {
+      var arr = []
+      for (var i = 0, j = str.length; i < j; ++i) {
+        arr.push(str.charCodeAt(i))
+      }
+      var tmpUint8Array = new Uint8Array(arr)
       return tmpUint8Array
     }
   },
-  beforeDestroy () {
+  beforeDestroy() {
     this.ws.close()
   }
 }
 </script>
 
 <style lang="less" scoped>
-  .project-list {
-
-    .card-title {
-      font-size: 0;
-
-      a {
-        color: rgba(0, 0, 0, 0.85);
-        margin-left: 12px;
-        line-height: 24px;
-        height: 24px;
-        display: inline-block;
-        vertical-align: top;
-        font-size: 14px;
-
-        &:hover {
-          color: #1890ff;
-        }
-      }
-    }
-    .card-description {
-      color: rgba(0, 0, 0, 0.45);
-      height: 44px;
-      line-height: 22px;
-      overflow: hidden;
-    }
-    .project-item {
-      display: flex;
-      margin-top: 8px;
-      overflow: hidden;
-      font-size: 12px;
-      height: 20px;
-      line-height: 20px;
-      a {
-        color: rgba(0, 0, 0, 0.45);
-        display: inline-block;
-        flex: 1 1 0;
-
-        &:hover {
-          color: #1890ff;
-        }
-      }
-      .datetime {
-        color: rgba(0, 0, 0, 0.25);
-        flex: 0 0 auto;
-        float: right;
-      }
-    }
-    .ant-card-meta-description {
-      color: rgba(0, 0, 0, 0.45);
-      height: 44px;
-      line-height: 22px;
-      overflow: hidden;
-    }
-  }
-
-  .item-group {
-    padding: 20px 0 8px 24px;
+.project-list {
+  .card-title {
     font-size: 0;
-    a {
-      color: rgba(0, 0, 0, 0.65);
-      display: inline-block;
-      font-size: 14px;
-      margin-bottom: 13px;
-      width: 25%;
-    }
-  }
 
-  .members {
     a {
-      display: block;
-      margin: 12px 0;
+      color: rgba(0, 0, 0, 0.85);
+      margin-left: 12px;
       line-height: 24px;
       height: 24px;
-      .member {
-        font-size: 14px;
-        color: rgba(0, 0, 0, .65);
-        line-height: 24px;
-        max-width: 100px;
-        vertical-align: top;
-        margin-left: 12px;
-        transition: all 0.3s;
-        display: inline-block;
-      }
+      display: inline-block;
+      vertical-align: top;
+      font-size: 14px;
+
       &:hover {
-        span {
-          color: #1890ff;
-        }
+        color: #1890ff;
       }
     }
   }
+  .card-description {
+    color: rgba(0, 0, 0, 0.45);
+    height: 44px;
+    line-height: 22px;
+    overflow: hidden;
+  }
+  .project-item {
+    display: flex;
+    margin-top: 8px;
+    overflow: hidden;
+    font-size: 12px;
+    height: 20px;
+    line-height: 20px;
+    a {
+      color: rgba(0, 0, 0, 0.45);
+      display: inline-block;
+      flex: 1 1 0;
 
-  .mobile {
-
-    .project-list {
-
-      .project-card-grid {
-        width: 100%;
+      &:hover {
+        color: #1890ff;
       }
     }
-
-    .more-info {
-      border: 0;
-      padding-top: 16px;
-      margin: 16px 0 16px;
+    .datetime {
+      color: rgba(0, 0, 0, 0.25);
+      flex: 0 0 auto;
+      float: right;
     }
+  }
+  .ant-card-meta-description {
+    color: rgba(0, 0, 0, 0.45);
+    height: 44px;
+    line-height: 22px;
+    overflow: hidden;
+  }
+}
 
-    .headerContent .title .welcome-text {
-      display: none;
+.item-group {
+  padding: 20px 0 8px 24px;
+  font-size: 0;
+  a {
+    color: rgba(0, 0, 0, 0.65);
+    display: inline-block;
+    font-size: 14px;
+    margin-bottom: 13px;
+    width: 25%;
+  }
+}
+
+.members {
+  a {
+    display: block;
+    margin: 12px 0;
+    line-height: 24px;
+    height: 24px;
+    .member {
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.65);
+      line-height: 24px;
+      max-width: 100px;
+      vertical-align: top;
+      margin-left: 12px;
+      transition: all 0.3s;
+      display: inline-block;
+    }
+    &:hover {
+      span {
+        color: #1890ff;
+      }
+    }
+  }
+}
+
+.mobile {
+  .project-list {
+    .project-card-grid {
+      width: 100%;
     }
   }
 
+  .more-info {
+    border: 0;
+    padding-top: 16px;
+    margin: 16px 0 16px;
+  }
+
+  .headerContent .title .welcome-text {
+    display: none;
+  }
+}
 </style>

@@ -8,8 +8,8 @@ import { ACCESS_TOKEN } from '@/store/mutation-types'
 // 创建 axios 实例
 const service = axios.create({
   // baseURL: process.env.VUE_APP_API_BASE_URL, // api base_url
-  baseURL: 'http://127.0.0.1:7861', // api base_url
-  timeout: 6000, // 请求超时时间
+  baseURL: 'http://capi.tianta.com.cn', // api base_url
+  timeout: 60000, // 请求超时时间
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json'
@@ -64,7 +64,7 @@ export default {
     url = url + '?' + new Date().getTime()
     try {
       const response = await service.get(url)
-      console.log(response)
+      // console.log(response)
 
       return response
     } catch (error) {

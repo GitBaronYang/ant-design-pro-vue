@@ -16,5 +16,5 @@ export const useroles = {
 }
 
 export const compress = {
-  compress: param => asyncservice.get(`/test/v1/map`, param)
+  compress: (currentPage,pageSize) => asyncservice.get(`/openapi/v2/all_ephemeris_compress/${currentPage}/${pageSize}`, currentPage,pageSize)
 }
